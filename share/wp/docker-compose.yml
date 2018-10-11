@@ -1,0 +1,50 @@
+version: "3"
+services:
+
+  # WordPress
+  wordpress:
+    build: $PWD
+    restart: always
+    container_name: my-container-name
+    volumes:
+      - $PWD/themes:/var/www/html/wp-content/themes
+      - $PWD/php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: "db:3306"
+    networks:
+      - my_wordpress_network
+    env_file: .env
+
+  # MySQL
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: my-container-name-db
+    volumes:
+      - db-data:/var/lib/mysql
+      # Import SQL Data
+      #- $PWD/db-data/mysql.dump.sql:/docker-entrypoint-initdb.d/install_wordpress.sql
+    networks:
+      - my_wordpress_network
+    env_file: .env
+
+  # MailHog
+  mailhog:
+    image: mailhog/mailhog
+    restart: always
+    container_name: my-container-name-mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    networks:
+      - my_wordpress_network
+
+volumes:
+  db-data:
+
+networks:
+  my_wordpress_network:
