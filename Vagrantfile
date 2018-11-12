@@ -174,8 +174,8 @@ Vagrant.configure("2") do |config|
   # ---------------ここから追記-------------
 
   # Docker Compose をインストールする
-  config.vm.provision "shell", inline: <<-SHELL
-    curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+  config.vm.provision :shell, inline: <<-SHELL
+    curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
     sudo mkdir /opt
     sudo mkdir /opt/bin
     sudo mv ~/docker-compose /opt/bin/docker-compose
