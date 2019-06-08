@@ -6,7 +6,7 @@ RUN apt-get -y install unzip
 
 # WP プラグイン (zip) ダウンロード
 WORKDIR /tmp/wp-plugins
-RUN curl -O https://downloads.wordpress.org/plugin/wp-multibyte-patch.2.8.1.zip
+RUN curl -O https://downloads.wordpress.org/plugin/wp-multibyte-patch.2.8.2.zip
 
 # Zip ファイルを解凍してインストール
 RUN unzip './*.zip' -d /usr/src/wordpress/wp-content/plugins
